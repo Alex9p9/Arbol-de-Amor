@@ -32,10 +32,12 @@ $(window).resize(function () {
     };
 })(jQuery);
 
-function timeElapse(date) {
-    var current = new Date(); // ← CORREGIDO
-	current.setHours(current.getHours() - 1);
-    var seconds = (current.getTime() - date.getTime()) / 1000;
+// Define la fecha inicial (8 de mayo de 2025)
+var startDate = new Date(2025, 4, 8); // mes 4 es mayo, porque empieza en 0
+
+function timeElapse() {
+    var current = new Date();
+    var seconds = Math.floor((current.getTime() - startDate.getTime()) / 1000);
 
     var days = Math.floor(seconds / (3600 * 24));
     seconds = seconds % (3600 * 24);
@@ -54,5 +56,9 @@ function timeElapse(date) {
         "<span class=\"digit\">" + hours + "</span> horas " +
         "<span class=\"digit\">" + minutes + "</span> minutos " +
         "<span class=\"digit\">" + seconds + "</span> segundos";
-    $("#clock").html(result);
+    $("#miClock").html(result);
 }
+
+// Ejecuta la función inmediatamente y cada segundo para actualizar
+timeElapse();
+setInterval(timeElapse, 1000);
